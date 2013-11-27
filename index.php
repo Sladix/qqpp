@@ -15,6 +15,7 @@
 		foreach ($xml->channel->item as $item) {
 			echo "<div class='news'>";
 				echo "<h2>".$item->title."</h2>";
+				echo "<img src='{$item->enclosure['url']}'>";
 			echo "</div>";
 
 		}
