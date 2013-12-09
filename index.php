@@ -1,3 +1,6 @@
+<?php 
+require_once "config.php";
+ ?>
 <html>
 <head>
 	<title>Qu'est-ce qui se putain d'passe ?</title>
@@ -8,6 +11,12 @@
 </head>
 <body>
 	<h1>Qu'est-ce qui s'putain d'passe ?</h1>
+	<div id="menu">
+		<button id="connectB" onclick="dalog();">Se Connecter</button>
+		<p id="nameholder">Bienvenue <span id="name"></span></p>
+	</div>
+	<p style="text-align:center;margin-bottom:2px;">Parce que l'acualité est riche, le peuple a le droit d'élever sa voix, et d'exprimer sa sensibilité sur ce qui se putain de passe !</p>
+	<p style="text-align:center;margin-top:3px;">Il vous suffit de cliquer sur un mot pour... voilà quoi ! Putain !</p>
 	<div id="container">
 	<?php 
 		$feedUrl = 'http://rss.lemonde.fr/c/205/f/3050/index.rss';
@@ -24,6 +33,7 @@
 					echo "</div>";
 					echo "<div class='ncontainer' id='".$id."'>";
 						echo "<h2>".$item->title."</h2>";
+						//echo "<small><a href='".$b."'>Lire la suite</a></small>";
 						echo "<p class='ptain'>Putain d'<span class='mot'></span></p>";
 						echo "<div class='statholder'></div>";
 						echo "<input type='hidden' name='mot'>";
