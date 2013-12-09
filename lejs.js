@@ -1,7 +1,7 @@
 
  $(document).ready(function(){
- 	$("h2 span").hover(colorize);
- 	$("h2 span").click(selectWord);
+ 	$(".ncontainer h2 span").hover(colorize);
+ 	$(".ncontainer h2 span").click(selectWord);
  });
 
  $("#container h2").each(function(){
@@ -30,10 +30,15 @@
  function selectWord()
  {
  	if($(this).attr("id") == "clicked")
+ 	{
  		$(this).attr("id","");
+ 		$(this).parent().parent().find(".ptain").slideUp();
+ 	}
  	else
  	{
- 		$("h2 span").attr("id","");
+ 		$(this).parent().children("span").attr("id","");
  		$(this).attr("id","clicked");
+ 		$(this).parent().parent().find(".mot").text($(this).text());
+ 		$(this).parent().parent().find(".ptain").slideDown();
  	}
  }

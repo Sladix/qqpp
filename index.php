@@ -1,21 +1,35 @@
 <html>
 <head>
-	<title>Cul</title>
+	<title>Qu'est-ce qui se putain d'passe ?</title>
 	<meta charset="utf-8">
 	<script type="text/javascript" src="jquery.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<link href='http://fonts.googleapis.com/css?family=Exo+2:200' rel='stylesheet' type='text/css'>
 </head>
 <body>
-
+	<h1>Qu'est-ce qui s'putain d'passe ?</h1>
 	<div id="container">
 	<?php 
 		$feedUrl = 'http://rss.lemonde.fr/c/205/f/3050/index.rss';
 		$rawFeed = file_get_contents($feedUrl);
 		$xml = new SimpleXmlElement($rawFeed);
 		foreach ($xml->channel->item as $item) {
-			echo "<div class='news'>";
-				echo "<h2>".$item->title."</h2>";
-			echo "</div>";
+			$b = (string)$item->guid;
+			$id = explode("/", $b);
+			$id = $id[count($id)-2];
+			echo "<article class='news'>";
+				echo "<div class='nncontainer'>";
+					echo "<div class='imgcontainer'>";
+						echo "<img src='".$item->enclosure['url']."'>";
+					echo "</div>";
+					echo "<div class='ncontainer' id='".$id."'>";
+						echo "<h2>".$item->title."</h2>";
+						echo "<p class='ptain'>Putain d'<span class='mot'></span></p>";
+						echo "<div class='statholder'></div>";
+						echo "<input type='hidden' name='mot'>";
+					echo "</div>";
+				echo "</div>";
+			echo "</article>";
 
 		}
 	 ?>
