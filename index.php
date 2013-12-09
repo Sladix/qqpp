@@ -36,7 +36,6 @@ require_once "config.php";
 						//echo "<small><a href='".$b."'>Lire la suite</a></small>";
 						echo "<p class='ptain'>Putain d'<span class='mot'></span></p>";
 						echo "<div class='statholder'></div>";
-						echo "<input type='hidden' name='mot'>";
 					echo "</div>";
 				echo "</div>";
 			echo "</article>";
