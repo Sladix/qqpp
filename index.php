@@ -19,7 +19,8 @@
 
 		}
 	 ?>
-</div>
+	</div>
+	<script type="text/javascript" src="lejs.js"></script>
 </body>
 </html>
 
