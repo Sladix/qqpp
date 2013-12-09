@@ -1,0 +1,27 @@
+Time : 22:42:11
+SQLSTATE[HY000]: General error: 2031 
+Raw SQL : SELECT titre, image, guid FROM actus ORDER BY guid DESC LIMIT 50 OFFSET :lenombre
+
+Time : 21:58:43
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '3528172' for key 'PRIMARY'
+Raw SQL : INSERT INTO actus (guid,titre,image) VALUES (:guid,:titre,:image)
+
+Time : 21:58:15
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '3528172' for key 'PRIMARY'
+Raw SQL : INSERT INTO actus (guid,titre,image) VALUES (:guid,:titre,:image)
+
+Time : 20:42:22
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+Raw SQL : SELECT COUNT(user_id) as c FROM votes WHERE user_id = :user_id AND mot = :mot
+
+Time : 20:21:03
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1232156588-3528157' for key 'PRIMARY'
+Raw SQL : INSERT INTO votes(user_id,actu_id,mot) VALUES(:uid,:aid,:mot)
+
+Time : 20:18:42
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+Raw SQL : SELECT COUNT(user_id) FROM votes WHERE user_id = :uid
+
+Time : 20:17:58
+SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+Raw SQL : SELECT actu_id,mot FROM votes WHERE user_id = :user_id
