@@ -69,7 +69,9 @@ var _number = 50;
  {
  	obj.parent().children("span").removeClass('clicked');
 	obj.addClass("clicked");
-	obj.parent().parent().find(".mot").text(obj.text());
+	var mot = obj.text();
+	mot = mot.replace("d'","");
+	obj.parent().parent().find(".mot").text(mot);
 	obj.parent().parent().find(".ptain").slideDown();
  }
 
