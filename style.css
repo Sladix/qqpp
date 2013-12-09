@@ -1,0 +1,10 @@
+.hovered
+{
+	color: orange;
+	cursor: pointer;
+}
+#clicked
+{
+	color:white;
+	background: black;
+}

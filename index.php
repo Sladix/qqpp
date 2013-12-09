@@ -3,8 +3,10 @@
 	<title>Cul</title>
 	<meta charset="utf-8">
 	<script type="text/javascript" src="jquery.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+
 	<div id="container">
 	<?php 
 		$feedUrl = 'http://rss.lemonde.fr/c/205/f/3050/index.rss';
@@ -18,16 +20,6 @@
 		}
 	 ?>
 </div>
- <script type="text/javascript">
- $("#container h2").each(function(){
- 	var txt = $(this).text().split(" ");
- 	var container = $(this);
- 	$(this).html("");
- 	$(txt).each(function(index,value){
- 		container.append("<span>"+value+"</span> ");
- 	});
- });
- </script>
 </body>
 </html>
 
