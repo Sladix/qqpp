@@ -21,7 +21,11 @@
  <script type="text/javascript">
  $("#container h2").each(function(){
  	var txt = $(this).text().split(" ");
- 	console.log(txt);
+ 	var container = $(this);
+ 	$(this).html("");
+ 	$(txt).each(function(index,value){
+ 		container.append("<span>"+value+"</span> ");
+ 	});
  });
  </script>
 </body>
