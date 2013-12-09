@@ -41,7 +41,7 @@ var _uuser;
  {
  	if($(this).hasClass("clicked"))
  	{
- 		$(this).attr("id","");
+ 		$(this).removeClass("clicked");
  		$(this).parent().parent().find(".ptain").slideUp();
  	}
  	else
@@ -116,5 +116,5 @@ function displayLog()
 
  function colorizeVoted()
  {
- 	
+
  }
