@@ -31,18 +31,18 @@ foreach ($posts as $key => $value) {
 		//20 miutes$feedUrl = 'http://flux.20minutes.fr/c/32497/f/479493/index.rss?xts=290428&xtor=RSS-1';
 		$rawFeed = file_get_contents($feedUrl);
 		$xml = new SimpleXmlElement($rawFeed);
+		$count = 0;
 		foreach ($xml->channel->item as $item) {
 			$b = (string)$item->guid;
 			$id = explode("/", $b);
 			$id = $id[count($id)-2];
-
 			if(!in_array((int)$id,$done))
 			{
 				echo "<article class='news'>";
 					echo "<div class='nncontainer'>";
 						echo "<div class='imgcontainer'>";
 							$img = (!empty($item->enclosure['url']))?$item->enclosure['url']:'thumb.jpg';
-							echo "<img src='".$img."'>";
+							echo "<a href='".$b."' target='_blank'><img src='".$img."'></a>";
 							$image = $item->enclosure['url'];
 						echo "</div>";
 						echo "<div class='ncontainer' id='".$id."'>";
@@ -53,6 +53,7 @@ foreach ($posts as $key => $value) {
 						echo "</div>";
 					echo "</div>";
 				echo "</article>";
+				$count++;
 			}
 
 			//on enregistre si c'est pas dans la db
@@ -61,15 +62,17 @@ foreach ($posts as $key => $value) {
 				$db->bindMore(array("titre"=>$item->title,"image"=>$image,"guid"=>$id));
 				$db->query("INSERT INTO actus (guid,titre,image) VALUES (:guid,:titre,:image)");
 			}
-
+			
 		}
 
 		foreach ($posts as $key => $value) {
+			if($count < 30)
+			{
 			echo "<article class='news'>";
 					echo "<div class='nncontainer'>";
 						echo "<div class='imgcontainer'>";
 						$img = (!empty($value["image"]))?$value["image"]:'thumb.jpg';
-							echo "<img src='".$img."'>";
+							echo "<a href='http://www.lemonde.fr/tiny/".$value["guid"]."/'  target='_blank'><img src='".$img."'></a>";
 						echo "</div>";
 						echo "<div class='ncontainer' id='".$value["guid"]."'>";
 							echo "<h2>".$value["titre"]."</h2>";
@@ -79,6 +82,8 @@ foreach ($posts as $key => $value) {
 						echo "</div>";
 					echo "</div>";
 				echo "</article>";
+				$count++;
+			}
 		}
 	 ?>
 	 
