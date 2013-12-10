@@ -102,7 +102,7 @@ var _number;
 
  function updateStatusCallback(data)
  {
- 	if(data.status != "not_authorized")
+ 	if(data.status != "not_authorized" && data.status != "unknown")
  	{
  		displayLog();
  	}
