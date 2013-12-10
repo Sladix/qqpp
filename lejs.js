@@ -1,10 +1,9 @@
 var lettresExclude = ["les","mes","tes","ses","ces","aux","eux","des","mon","ton","son","une"];
 var _uuser;
 var refreshS = false;
-var _number = 50;
+var _number;
  $(document).ready(function(){
- 	$(".ncontainer h2 span").hover(colorize);
- 	$(".ncontainer h2 span").click(selectWord);
+ 	
 
  	$.ajaxSetup({ cache: true });
 	$.getScript('//connect.facebook.net/fr_FR/all.js', function(){
@@ -15,24 +14,34 @@ var _number = 50;
 	  FB.getLoginStatus(updateStatusCallback);
 	});
 	$(".ncontainer").mouseenter(getStats);
-	$('#container').isotope({
-	  // options
-	  itemSelector : '.news',
-	  layoutMode : 'fitRows'
-	}); 
+
+	 $("#container h2").each(function(){
+	 	var txt = $(this).text().split(" ");
+	 	var container = $(this);
+	 	$(this).html("");
+	 	$(txt).each(function(index,value){
+	 		if(!$.isNumeric(value) && value.length>2 && $.inArray(value,lettresExclude) == -1)
+	 			container.append("<span>"+value+"</span> ");
+	 		else
+	 			container.append("<i>"+value+"</i> ");
+	 	});
+	 }); 
+	$(".ncontainer h2 span").hover(colorize);
+ 	$(".ncontainer h2 span").click(selectWord);
+	var $container = $('#container');
+	// initialize
+	$container.masonry({
+	  columnWidth: 340,
+	  itemSelector: '.news',
+	  isFitWidth:true,
+	  gutter:25
+	});
+	_number = 30;
  });
 
- $("#container h2").each(function(){
- 	var txt = $(this).text().split(" ");
- 	var container = $(this);
- 	$(this).html("");
- 	$(txt).each(function(index,value){
- 		if(!$.isNumeric(value) && value.length>2 && $.inArray(value,lettresExclude) == -1)
- 			container.append("<span>"+value+"</span> ");
- 		else
- 			container.append("<i>"+value+"</i> ");
- 	});
- });
+
+
+
 
  function colorize()
  {
@@ -185,14 +194,16 @@ function displayLog()
 		  url: "ajax.php",
 		  data: { action:"getMore",number:_number}
 		}).done(function(data){
-			
-			if(typeof data != "undefined" && data != "")
+			if(typeof data != "undefined" && data != "" && data != "[]")
 			{
 				var d = eval(data);
 				$.each(d,function(i,v){
-					$("#container").isotope('insert',$("<article class='news'><div class='nncontainer'><div class='imgcontainer'><img src='"+v.image+"'></div><div class='ncontainer' id='"+v.guid+"'><h2>"+v.titre+"</h2><p class='ptain'>P*tain d'<span class='mot'></span></p><div class='statholder'></div></div></article>"));
+					var a = $("<article class='news'><div class='nncontainer'><div class='imgcontainer'><img src='"+v.image+"'></div><div class='ncontainer' id='"+v.guid+"'><h2>"+v.titre+"</h2><p class='ptain'>P*tain d'<span class='mot'></span></p><div class='statholder'></div></div></article>");
+					var $container = $("#container");
+					$container.masonry().append( a ).masonry( 'appended', a );
+					
 				});
-				_number+=50;
+				_number+=30;
 			}else
 			{
 				alert('yen a plus !');

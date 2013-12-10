@@ -1,7 +1,7 @@
 <?php 
 require_once "config.php";
 //TODO recup en fonction du journal
-$posts = $db->query("SELECT titre, image, guid FROM actus ORDER BY guid DESC");
+$posts = $db->query("SELECT titre, image, guid FROM actus ORDER BY guid DESC LIMIT 30");
 $done = array();
 foreach ($posts as $key => $value) {
 	$done[] = (int)$value["guid"];
@@ -12,7 +12,7 @@ foreach ($posts as $key => $value) {
 	<title>Qu'est-ce qui se P*tain d'Passe ?</title>
 	<meta charset="utf-8">
 	<script type="text/javascript" src="jquery.js"></script>
-	<script type="text/javascript" src = "isotope.js"></script>
+	<script type="text/javascript" src = "masonry.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link href='http://fonts.googleapis.com/css?family=Exo+2:200,400' rel='stylesheet' type='text/css'>
 </head>
@@ -20,6 +20,7 @@ foreach ($posts as $key => $value) {
 	<h1>Qu'est-ce qui s'P*tain d'Passe ?</h1>
 	<div id="menu">
 		<button id="connectB" onclick="dalog();">Se Connecter</button>
+		<p style="font-size:10px;color:white;">Aucune de vos informations ne sera utilisée pour faire quoi que ce soit d'autre que d'enregistrer les votes.</p>
 		<p id="nameholder">Bienvenue <span id="name"></span></p>
 	</div>
 	<p style="text-align:center;margin-bottom:2px;font-weight:200">Parce que l'acualité est trop intense, le peuple a le droit d'élever sa voix, vociférons ensemble sur ce qui se P*tain de Passe !</p>
@@ -40,7 +41,8 @@ foreach ($posts as $key => $value) {
 				echo "<article class='news'>";
 					echo "<div class='nncontainer'>";
 						echo "<div class='imgcontainer'>";
-							echo "<img src='".$item->enclosure['url']."'>";
+							$img = (!empty($item->enclosure['url']))?$item->enclosure['url']:'thumb.jpg';
+							echo "<img src='".$img."'>";
 							$image = $item->enclosure['url'];
 						echo "</div>";
 						echo "<div class='ncontainer' id='".$id."'>";
@@ -66,7 +68,8 @@ foreach ($posts as $key => $value) {
 			echo "<article class='news'>";
 					echo "<div class='nncontainer'>";
 						echo "<div class='imgcontainer'>";
-							echo "<img src='".$value["image"]."'>";
+						$img = (!empty($value["image"]))?$value["image"]:'thumb.jpg';
+							echo "<img src='".$img."'>";
 						echo "</div>";
 						echo "<div class='ncontainer' id='".$value["guid"]."'>";
 							echo "<h2>".$value["titre"]."</h2>";
@@ -78,8 +81,9 @@ foreach ($posts as $key => $value) {
 				echo "</article>";
 		}
 	 ?>
-	 <button class = "news" onclick="getMore();"></button>
+	 
 	</div>
+	<button id="getMoreContent" onclick="getMore();">Donnez m'en plus !</button>
 
 	<script type="text/javascript" src="lejs.js"></script>
 </body>

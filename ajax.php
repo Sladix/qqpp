@@ -59,9 +59,10 @@ if($_POST["action"] == "getAllVotes")
 {
 	extract($_POST);
 	$lenombre = $number;
-	$db->bind("lenombre",$number);
+	$db->bind("lenombre",(int)$number);
 	$posts = $db->query("SELECT titre, image, guid FROM actus ORDER BY guid DESC LIMIT 50 OFFSET :lenombre");
-	return $posts;
+	echo json_encode($posts);
+	die();
 }
 
 
